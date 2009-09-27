@@ -75,7 +75,8 @@ class group_Core {
   // ----------------------------------------------------------------------
 
   static function get_edit_form_admin($group) {
-    $form = new Forge("admin/users/edit_group/$group->id", "", "post", array("id" => "gEditGroupForm"));
+    $form = new Forge(
+      "admin/users/edit_group/$group->id", "", "post", array("id" => "gEditGroupForm"));
     $form_group = $form->group("edit_group")->label(t("Edit Group"));
     $form_group->input("name")->label(t("Name"))->id("gName")->value($group->name);
     $form_group->inputs["name"]->error_messages(
