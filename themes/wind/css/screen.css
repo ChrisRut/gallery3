@@ -285,7 +285,7 @@ li.gError select {
 
 /* Status messages ~~~~~~~~~~~~~~~~~~~~~~~ */
 
-#gMessage {
+#gContent #gMessage {
   width: 100%;
 }
 
@@ -465,6 +465,7 @@ form .gError,
 #gContent .gPhoto h2,
 #gContent .gItem .gMetadata {
   display: none;
+  margin-bottom: .6em;
 }
 
 #gContent #gAlbumGrid .gAlbum {
@@ -480,13 +481,20 @@ form .gError,
 }
 
 #gContent #gAlbumGrid .gHoverItem {
-  background-color: #fff;
   border: 1px solid #000;
+  position: absolute !important;
+  z-index: 1000 !important;
 }
 
 #gContent .gHoverItem h2,
 #gContent .gHoverItem .gMetadata {
   display: block;
+}
+
+#gContent #gAlbumGrid #gPlaceHolder {
+  position: relative;
+  visibility: hidden;
+  z-index: 1;
 }
 
 /* Individual photo content ~~~~~~~~~~~~~~ */
@@ -589,7 +597,7 @@ form .gError,
 
 #gSiteMenu {
   bottom: 0;
-	display: none;
+  display: none;
   left: 140px;
   position: absolute;
 }
@@ -601,9 +609,10 @@ form .gError,
 /* Context Menu  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
 .gContextMenu {
-  position: absolute;
+  background-color: #fff;
   bottom: 0;
   left: 0;
+  position: absolute;
 }
 
 .gItem .gContextMenu {
@@ -1012,15 +1021,37 @@ form .gError,
   display: inline-block;
 }
 
-#gAddPhotos span {
+#gAddPhotos #SWFUpload_0 {
+  position: relative;
+  top: -200px;
+  left: 134px;
+}
+#gAddPhotos .gBreadcrumbs {
+  border: 0;
+  margin: 0;
+  padding-left:10px;
+}
+#gAddPhotosCanvas {
+  border: 1px solid  #CCCCCC;
+  margin: .5em 0 .5em 0;
+  width: 469px;
+	height: 325px;
+  overflow: auto;
+}
+#gAddPhotos button {
+  margin-bottom: .5em;
+  float: right;
+}
+#g-uploadqueue-infobar {
   clear: both;
-  display: block;
+}
+#g-uploadqueue-infobar #g-cancelupload {
+  display: none;
+  cursor: pointer;
 }
 
 #gAddPhotosCanvas {
-  height: 325px;
-  width: 450px;
-  overflow: auto;
+
 }
 
 #gAddPhotosQueue .progressbar {

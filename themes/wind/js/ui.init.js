@@ -62,35 +62,26 @@ $(document).ready(function() {
     // Vertical align thumbnails/metadata in album grid
     $(".gItem").gallery_valign();
 
-    // Initialize context menus
+    // Initialize thumbnail hover effect
     $(".gItem").hover(
-      function(){
-        // Insert invisible placeholder to hold the item's position in the grid
-        var placeHolder = $(this).clone();
-        $(placeHolder).attr("id", "gPlaceHolder");
-        $(placeHolder).css("visibility", "hidden");
+      function() {
+        // Insert a placeholder to hold the item's position in the grid
+        var placeHolder = $(this).clone().attr("id", "gPlaceHolder");
         $(this).after($(placeHolder));
-        // Style and position the item
-        $(this).addClass("gHoverItem");
+        // Style and position the hover item
         var position = $(this).position();
-        $(this).css("position", "absolute");
-        $(this).css("top", position.top);
-        $(this).css("left", position.left);
-        $(this).css("z-index", "1000");
+        $(this).css("top", position.top).css("left", position.left);
+        $(this).addClass("gHoverItem");
         // Initialize the contextual menu
         $(this).gallery_context_menu();
-        // Set height based on height of descendents
-        var title = $(this).find("h2");
-        var meta = $(this).find(".gMetadata");
-        var context_label = $(this).find(".gContextMenu li:first");
-        var item_ht = $(this).height();
-        var title_ht = $(title).gallery_height();
-        var meta_ht = $(meta).gallery_height();
-        var context_label_ht = $(context_label).gallery_height();
-        $(this).height(item_ht + title_ht + meta_ht + context_label_ht);
+        // Set the hover item's height
+        $(this).height("auto");
+        var context_menu = $(this).find(".gContextMenu");
+        var adj_height = $(this).height() + context_menu.height(); 
+        $(this).height(adj_height); 
       },
       function() {
-        // Reset item height, position, and z-index
+        // Reset item height and position
         if ($(this).next().height()) {
           var sib_height = $(this).next().height();
         } else {
@@ -101,12 +92,10 @@ $(document).ready(function() {
         }
         $(this).css("height", sib_height);
         $(this).css("position", "relative");
-        $(this).css("top", null);
-        $(this).css("left", null);
-        $(this).css("z-index", 1);
+        $(this).css("top", 0).css("left", 0);
         // Remove the placeholder and hover class from the item
-        $("#gPlaceHolder").remove();
         $(this).removeClass("gHoverItem");
+        $("#gPlaceHolder").remove();
       }
     );
   }
