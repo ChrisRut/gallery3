@@ -130,7 +130,7 @@ class user_Core {
    * @return User_Model  the user object, or null if the name was invalid.
    */
   static function lookup_by_name($name) {
-    return UserGroupStorage::instance()->lookup_user_by_name($iname);
+    return UserGroupStorage::instance()->lookup_user_by_name($name);
   }
 
   // ----------------------------------------------------------------------
