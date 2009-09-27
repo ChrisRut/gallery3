@@ -45,7 +45,7 @@ class UserGroupStorage_Core {
   }
 
   /**
-   * Return the array of group ids this user belongs to
+   * Return the array of group ids this user belongs to.
    * @return array
    */
   public function group_ids() {
@@ -113,7 +113,8 @@ class UserGroupStorage_Core {
    * @param User_Model $user the user object.
    */
   public function login($user) {
-    return $this->driver->login($user);
+    $this->driver->login($user);
+    module::event("user_login", $user);
   }
 
   /**
@@ -121,7 +122,11 @@ class UserGroupStorage_Core {
    * @param User_Model $user the user object.
    */
   public function logout() {
-    return $this->driver->logout();
+    $user = user::active();
+    if (!$user->guest) {
+      $this->driver->logout();
+      module::event("user_logout", $user);
+    }
   }
 
   /**
@@ -181,7 +186,7 @@ class UserGroupStorage_Core {
 
   /**
    * Look up a group by name.
-   * @param integer       $id the group name
+   * @param integer       $name the group name
    * @return Group_Model  the group object, or null if the name was invalid.
    */
   public function lookup_group_by_name($name) {

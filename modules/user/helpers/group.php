@@ -53,12 +53,21 @@ class group_Core {
   }
 
   /**
+   * Look up a group by id.
+   * @param integer       $id the group id
+   * @return Group_Model  the group object, or null if the name was invalid.
+   */
+  static function lookup($id) {
+    return UserGroupStorage::instance()->lookup_group($id);
+  }
+
+  /**
    * Look up a group by name.
-   * @param integer      $id the group name
+   * @param integer       $name the group name
    * @return Group_Model  the group object, or null if the name was invalid.
    */
   static function lookup_by_name($name) {
-    return UserGroupStorage::instance()->lookup_by_name($name);
+    return UserGroupStorage::instance()->lookup_group_by_name($name);
   }
 
   // ----------------------------------------------------------------------

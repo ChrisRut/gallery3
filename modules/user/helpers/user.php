@@ -25,7 +25,7 @@
  */
 class user_Core {
   /**
-   * Return the array of group ids this user belongs to
+   * Return the array of group ids this user belongs to.
    *
    * @return array
    */
@@ -44,8 +44,6 @@ class user_Core {
 
   /**
    * Return the guest user.
-   *
-   * @todo consider caching
    *
    * @return User_Model
    */
@@ -100,7 +98,6 @@ class user_Core {
    */
   static function login($user) {
     UserGroupStorage::instance()->login($user);
-    module::event("user_login", $user);
   }
 
   /**
@@ -108,11 +105,7 @@ class user_Core {
    * @param object $user the user object.
    */
   static function logout() {
-    $user = user::active();
-    if (!$user->guest) {
-      UserGroupStorage::instance()->logout();
-      module::event("user_logout", $user);
-    }
+    UserGroupStorage::instance()->logout();
   }
 
   /**
