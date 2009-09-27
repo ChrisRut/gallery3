@@ -22,7 +22,6 @@ class user_event_Core {
    * Initialization.
    */
   static function gallery_ready() {
-    user::load_user();
     self::set_request_locale();
   }
 

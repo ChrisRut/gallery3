@@ -31,15 +31,7 @@ class group_Core {
    * @return Group_Model
    */
   static function create($name) {
-    $group = ORM::factory("group")->where("name", $name)->find();
-    if ($group->loaded) {
-      throw new Exception("@todo GROUP_ALREADY_EXISTS $name");
-    }
-
-    $group->name = $name;
-    $group->save();
-
-    return $group;
+    return UserGroupStorage::instance()->create_group($name);
   }
 
   /**
@@ -48,7 +40,7 @@ class group_Core {
    * @return Group_Model
    */
   static function everybody() {
-    return model_cache::get("group", 1);
+    return UserGroupStorage::instance()->everybody_group();
   }
 
   /**
@@ -57,7 +49,7 @@ class group_Core {
    * @return Group_Model
    */
   static function registered_users() {
-    return model_cache::get("group", 2);
+    return UserGroupStorage::instance()->registered_users_group();
   }
 
   /**
@@ -66,12 +58,12 @@ class group_Core {
    * @return Group_Model  the group object, or null if the name was invalid.
    */
   static function lookup_by_name($name) {
-    $group = model_cache::get("group", $name, "name");
-    if ($group->loaded) {
-      return $group;
-    }
-    return null;
+    return UserGroupStorage::instance()->lookup_by_name($name);
   }
+
+  // ----------------------------------------------------------------------
+  // Code below applies to all drivers
+  // ----------------------------------------------------------------------
 
   static function get_edit_form_admin($group) {
     $form = new Forge("admin/users/edit_group/$group->id", "", "post", array("id" => "gEditGroupForm"));
