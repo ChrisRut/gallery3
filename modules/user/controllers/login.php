@@ -58,8 +58,8 @@ class Login_Controller extends Controller {
     $form = user::get_login_form($url);
     $valid = $form->validate();
     if ($valid) {
-      $user = ORM::factory("user")->where("name", $form->login->inputs["name"]->value)->find();
-      if (!$user->loaded || !user::is_correct_password($user, $form->login->password->value)) {
+      $user = user::lookup_by_name($form->login->inputs["name"]->value);
+      if (!$user || !user::is_correct_password($user, $form->login->password->value)) {
         log::warning(
           "user",
           t("Failed login for %name",
