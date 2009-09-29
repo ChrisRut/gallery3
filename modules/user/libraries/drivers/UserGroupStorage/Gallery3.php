@@ -20,7 +20,15 @@
 
 class UserGroupStorage_Gallery3_Driver extends UserGroupStorage_Driver {
   public function group_ids() {
-    return Session::instance()->get("group_ids", array(1));
+    $session = Session::instance();
+    if (!($ids = $session->get("group_ids"))) {
+      $ids = array();
+      foreach ($user->groups as $group) {
+        $ids[] = $group->id;
+      }
+      $session->set("group_ids", $ids);
+    }
+    return $ids;
   }
 
   public function active_user() {
@@ -40,13 +48,6 @@ class UserGroupStorage_Gallery3_Driver extends UserGroupStorage_Driver {
         $session->set("user", $user);
       }
 
-      if (!$session->get("group_ids")) {
-        $ids = array();
-        foreach ($user->groups as $group) {
-          $ids[] = $group->id;
-        }
-        $session->set("group_ids", $ids);
-      }
     }
     return $user;
   }
