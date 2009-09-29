@@ -23,7 +23,7 @@ class UserGroupStorage_Gallery3_Driver extends UserGroupStorage_Driver {
     $session = Session::instance();
     if (!($ids = $session->get("group_ids"))) {
       $ids = array();
-      foreach ($user->groups as $group) {
+      foreach (self::active_user()->groups as $group) {
         $ids[] = $group->id;
       }
       $session->set("group_ids", $ids);
