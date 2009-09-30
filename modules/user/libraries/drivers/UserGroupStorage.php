@@ -62,13 +62,6 @@ abstract class UserGroupStorage_Driver {
   abstract function is_correct_password($user, $password);
 
   /**
-   * Create the hashed passwords.
-   * @param string $password a plaintext password
-   * @return string hashed password
-   */
-  abstract function hash_password($password);
-
-  /**
    * Log in as a given user.
    * @param User_Model $user the user object.
    */

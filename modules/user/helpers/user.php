@@ -89,7 +89,9 @@ class user_Core {
    * @return string hashed password
    */
   static function hash_password($password) {
-    return UserGroupStorage::instance()->hash_password($password);
+    require_once(MODPATH . "user/lib/PasswordHash.php");
+    $hashGenerator = new PasswordHash(10, true);
+    return $hashGenerator->HashPassword($password);
   }
 
   /**

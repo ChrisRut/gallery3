@@ -108,12 +108,6 @@ class UserGroupStorage_Gallery3_Driver extends UserGroupStorage_Driver {
     return false;
   }
 
-  public function hash_password($password) {
-    require_once(MODPATH . "user/lib/PasswordHash.php");
-    $hashGenerator = new PasswordHash(10, true);
-    return $hashGenerator->HashPassword($password);
-  }
-
   public function login($user) {
     $user->login_count += 1;
     $user->last_login = time();

@@ -37,7 +37,8 @@ class UserGroupStorage_Core {
    * Sets up the storage configuration, loads the UserGroupStorage_Driver.
    */
   public function __construct() {
-    $driver = "UserGroupStorage_Gallery3_Driver";
+    $driver = module::get_var("gallery", "user_group_storage", "Gallery3");
+    $driver = "UserGroupStorage_{$driver}_Driver";
     if (!Kohana::auto_load($driver)) {
       throw new Exception("@todo MISSING_STORAGE_DRIVER");
     }
@@ -97,15 +98,6 @@ class UserGroupStorage_Core {
    */
   public function is_correct_password($user, $password) {
     return $this->driver->is_correct_password($user, $password);
-  }
-
-  /**
-   * Create the hashed passwords.
-   * @param string $password a plaintext password
-   * @return string hashed password
-   */
-  public function hash_password($password) {
-    return $this->driver->hash_password($password);
   }
 
   /**
