@@ -283,9 +283,32 @@ class module_Core {
     array_shift($args);
     $function = str_replace(".", "_", $name);
 
-    // @todo: consider calling gallery_event first, since for things menus we need it to do some
-    // setup
+    if (method_exists("gallery_event", $function)) {
+      switch (count($args)) {
+      case 0:
+        gallery_event::$function();
+        break;
+      case 1:
+        gallery_event::$function($args[0]);
+        break;
+      case 2:
+        gallery_event::$function($args[0], $args[1]);
+        break;
+      case 3:
+        gallery_event::$function($args[0], $args[1], $args[2]);
+        break;
+      case 4:      // Context menu events have 4 arguments so lets optimize them
+        gallery_event::$function($args[0], $args[1], $args[2], $args[3]);
+        break;
+      default:
+        call_user_func_array(array("gallery_event", $function), $args);
+      }
+    }
+
     foreach (self::$active as $module) {
+      if ($module->name == "gallery") {
+        continue;
+      }
       $class = "{$module->name}_event";
       if (method_exists($class, $function)) {
         call_user_func_array(array($class, $function), $args);
