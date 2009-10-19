@@ -280,11 +280,11 @@ li.g-error select {
 }
 
 #g-footer {
-  /*background-color: #e8e8e8;*/
-  /*border-top: 1px solid #ccc;*/
+  background-color: #e8e8e8;
+  border-top: 1px solid #ccc;
   font-size: 1em;
   margin-top: 10px;
-  /*padding: 10px 20px;*/
+  padding: 10px 20px;
   color: #000000;
 }
 
