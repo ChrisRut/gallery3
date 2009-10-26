@@ -412,14 +412,9 @@ td {
 
 /* Superfish menu overrides ~~~~~~~~~~~~~~ */
 
-<<<<<<< HEAD:themes/wind/css/screen.css
-.sf-menu li li, .sf-menu li li ul li {
-  background-color: #114513;
-=======
 .sf-menu li li,
 .sf-menu li li ul li {
-  background-color: #bdd2ff;
->>>>>>> f517ef4baf48ef7e1f8cbf1ed073c13c0cdf131f:themes/wind/css/screen.css
+  background-color: #114513;
 }
 
 .sf-menu li:hover {
