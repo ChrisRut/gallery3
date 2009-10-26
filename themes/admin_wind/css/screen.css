@@ -11,6 +11,8 @@
  *  5)  Navigation and menus
  *  6)  jQuery and jQuery UI
  *  7)  Right-to-left language styles
+ *
+ * @todo Consider moving g-panel to gallery.common
  */
 
 /** *******************************************************************
@@ -114,107 +116,6 @@ th {
   white-space: nowrap;
 }
 
-/* Forms ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-
-fieldset {
-  border: 1px solid #ccc;
-  padding-bottom: .8em;
-}
-
-#g-header fieldset,
-#g-sidebar fieldset {
-  border: none;
-}
-
-legend {
-  font-weight: bold;
-  margin-left: 1em;
-}
-
-#g-header legend,
-#g-sidebar legend,
-#g-content #g-search-form legend,
-input[type="hidden"] {
-  display: none;
-}
-
-label {
-  cursor: help;
-}
-
-input[type="text"],
-input[type="password"] {
-  width: 50%;
-}
-
-input[type="text"],
-input[type="password"],
-textarea {
-  border: 1px solid #e8e8e8;
-  border-top-color: #ccc;
-  border-left-color: #ccc;
-  color: #333;
-}
-
-textarea {
-  width: 100%;
-  height: 12em;
-}
-
-input:focus,
-textarea:focus,
-option:focus {
-  background-color: #ffc;
-  color: #000;
-}
-
-/* Form layout ~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-
-form li {
-  margin: 0 !important;
-  padding: .3em 1.5em .3em 1em;
-}
-
-form ul ul {
-  clear: both;
-}
-
-form ul ul li {
-  float: left;
-}
-
-input,
-select,
-textarea {
-  display: block;
-  clear: both;
-  padding: .2em;
-}
-
-input[type="submit"],
-input[type="reset"] {
-  display: inline;
-  clear: none;
-  float: left;
-}
-
-/* Form validation ~~~~~~~~~~~~~~~~~~~~~~~ */
-
-form.g-error input[type="text"],
-li.g-error input[type="text"],
-form.g-error input[type="password"],
-li.g-error input[type="password"],
-form.g-error input[type="checkbox"],
-li.g-error input[type="checkbox"],
-form.g-error input[type="radio"],
-li.g-error input[type="radio"],
-form.g-error textarea,
-li.g-error textarea,
-form.g-error select,
-li.g-error select {
-  border: 2px solid red;
-}
-
 /** *******************************************************************
  * 2) Reusable content blocks
  *********************************************************************/
@@ -266,27 +167,24 @@ li.g-error select {
   opacity: 0.4;
 }
 
-tr.g-error,
-tr.g-info,
-tr.g-success,
-tr.g-warning {
-  background: none;
+.g-info td {
+  background-color: transparent;
+  background-image: none;
 }
 
-.g-info td.g-info {
+.g-success td {
   background-color: transparent;
-}
-
-.g-success td.g-success {
-  background-color: transparent;
+  background-image: none;
 }
 
 .g-error td {
   background-color: #f6cbca;
+  background-image: none;
 }
 
 .g-warning td {
   background-color: #fcf9ce;
+  background-image: none;
 }
 
 .g-module-status.g-info,
@@ -382,19 +280,6 @@ tr.g-warning {
 
 /* Footer content ~~~~~~~~~~~~~~~~~~~~~~~~ */
 
-#g-header #g-login-menu li,
-#g-footer #g-credits li {
-  display: inline;
-}
-
-#g-header #g-login-menu li {
-  padding-left: 1.2em;
-}
-
-#g-footer #g-credits li {
-  padding-right: 1.2em;
-}
-
 #g-content #g-search-results {
   margin-top: 1em;
   padding-top: 1em;
@@ -433,10 +318,6 @@ tr.g-warning {
   width: 90px;
 }
 
-#g-site-status {
-  margin-bottom: 0;
-}
-
 #g-content .g-item {
   background-color: #fff;
   border: 1px solid #e8e8e8;
@@ -446,15 +327,6 @@ tr.g-warning {
   padding: 14px 8px;
   text-align: center;
   width: 90px;
-}
-
-#g-admin-comments-menu {
-  margin: 1em 0;
-}
-
-#g-admin-comments-menu a {
-  margin: 0;
-  padding: .2em .6em;
 }
 
 #g-admin-graphics .g-available .g-block {
@@ -474,76 +346,39 @@ tr.g-warning {
   margin-right: 1em;
 }
 
-#g-user-admin-list .admin {
-  color: #55f;
-  font-weight: bold;
-}
-
 .g-actions a,
 .g-actions span {
   margin-right: 3em;
 }
 
-li.g-group {
-  float: left;
-  display: block;
-  width: 200px;
-  border: 1px solid gray;
-  padding: 0;
-  margin: 0 1em 1em 0;
-}
-
-li.g-group h4 {
-  background-color: #eee;
-  border-bottom: 1px dashed #ccc;
-  padding: .5em 0 .5em .5em;
-}
-li.g-group .g-button {
-  padding: 0;
-}
-li.g-group ul, li.g-group div {
-  height: 180px;
-  margin: 1px;
-  overflow: auto;
-  padding-top: .2em;
-}
-li.g-group div p {
-  color: gray;
-  text-align: center;
-  padding: 2em .5em 0 .5em
-}
-li.g-group .g-user {
-  padding: .2em 0 0 .5em;
-}
-li.g-group .g-user .g-button {
-  vertical-align: middle;
-}
-
-li.g-default-group h4, li.g-default-group .g-user {
-  color: gray;
-}
-
 /* Block admin  ~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
-#g-admin-blocks .g-block {
-  clear: none;
+.g-admin-blocks-list {
+  float: left;
+  margin: 0 2em 2em 0;
   width: 30%;
 }
 
-#g-admin-blocks .g-block .g-draggable {
-  background: #e7e7e7;
-  /*border: 1px solid #fff;*/
-  margin-bottom: 1em;
-  padding: .4em .8em;
+.g-admin-blocks-list div:last-child {
+  border: .1em solid;
+  height: 100%;
+}
+
+.g-admin-blocks-list ul {
+  height: 98%;
+  margin: .1em .1em;
+  padding: .1em;
+}
+
+.g-admin-blocks-list ul li.g-draggable {
+  background-color: #e8e8e8;
+  margin: .5em;
+  padding: .3em .8em;
 }
 
 /** *******************************************************************
  * 5) Navigation and menus
  *********************************************************************/
-
-#g-site-admin-menu {
-  font-size: 1.2em;
-}
 
 /* Login menu ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
@@ -573,7 +408,8 @@ li.g-default-group h4, li.g-default-group .g-user {
 
 /* Superfish menu overrides ~~~~~~~~~~~~~~ */
 
-.sf-menu li li, .sf-menu li li ul li {
+.sf-menu li li,
+.sf-menu li li ul li {
   background-color: #bdd2ff;
 }
 
@@ -594,10 +430,6 @@ li.g-default-group h4, li.g-default-group .g-user {
 
 #g-panel fieldset {
   border: none;
-}
-
-.ui-draggable {
-  cursor: move;
 }
 
 #g-admin-dashboard .ui-state-highlight,
@@ -644,117 +476,13 @@ li.g-default-group h4, li.g-default-group .g-user {
   margin-left: .2em;
 }
 
-.ui-icon-rotate-ccw {
-  background-position: -192px -64px;
-}
-
-.ui-icon-rotate-cw {
-  background-position: -208px -64px;
-}
-
 /*************** STUFF THAT NEEDS A HOME ****************/
-
-#g-move ul {
-  padding-left: 1em;
-}
-
-#g-move .selected {
-  background: #999;
-}
 
 .g-progress-bar {
   height: 1em;
   width: 100%;
   margin-top: .5em;
   display: inline-block;
-}
-
-#g-add-photos p {
-  margin: 0;
-  padding: 0;
-}
-
-#g-add-photos-canvas {
-  height: 325px;
-  width: 450px;
-  overflow: auto;
-}
-
-#g-add-photos-queue .progressbar {
-  height: 4px;
-}
-
-#g-add-photos-queue .title {
-  font-size: 1.25em;
-}
-
-#g-add-photos-queue .status {
-  font-size: .75em;
-}
-
-#g-add-photos-queue .box {
-  margin-bottom: 8px;
-  padding: 4px;
-}
-
-#g-add-photos-queue .pending {
-  background-color: #e8e8e8;
-  border: 1px solid #d7d7d7;
-}
-
-#g-add-photos-queue .error {
-  background-color: #fcc;
-  border: 1px solid #ebb;
-}
-
-#g-add-photos-queue .uploading {
-  background-color: #ff9;
-  border: 1px solid #ee8;
-}
-
-#g-add-photos-queue .complete {
-  background-color: #cfc;
-  border: 1px solid #beb;
-}
-
-#g-admin-g2-import-notes {
-  padding-bottom: 20px;
-}
-
-#g-admin-g2-import-details {
-  padding-top: 20px;
-}
-
-#g-admin-g2-import-details .g-warning {
-  margin-top: 4px;
-}
-
-#g-admin-g2-import-details .g-info {
-  padding: 2px;
-  border: 1px solid #999;
-  margin-bottom: 10px;
-}
-
-#g-admin-g2-import-notes p,
-#g-admin-g2-import-details .g-info p {
-  padding: 0;
-  margin: 0;
-}
-
-#g-admin-g2-import-notes ul li,
-#g-admin-g2-import .g-info ul li {
-  padding-left: 0;
-  margin-left: 20px;
-  list-style-type: disc;
-}
-
-.g-editable {
-  padding: .1em .3em .2em .3em;
-}
-
-.g-editable:hover {
-  background-color: #ffc;
-  cursor: text;
 }
 
 #g-task-log-dialog h1 {

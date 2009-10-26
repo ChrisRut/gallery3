@@ -1,12 +1,16 @@
 /**
- * Gallery 3 commonly reused screen styles
+ * Gallery 3 commonly re-used screen styles
  *
  * Sheet organization:
+ *
  *  1)  Text
- *  2)  Dimension and scale
- *  3)  States and interactions
- *  4)  Positioning and order
- *  5)  Containers/widgets
+ *  2)  Forms
+ *  3)  Dimension and scale
+ *  4)  States and interactions
+ *  5)  Positioning and order
+ *  6)  Containers/widgets
+ *
+ *  @todo Remove extra white space at the top of the add comment form, above the first field
  */
 
 /** *******************************************************************
@@ -25,27 +29,182 @@
   text-align: right;
 }
 
-
 /** *******************************************************************
- * 2) Dimension and scale
+ * 2) Forms
  **********************************************************************/
 
-.g-narrow {
+form {
+  margin: 0;
+}
+
+fieldset {
+  border: 1px solid #ccc;
+  padding: .4em 1em .8em 1em;
+}
+
+#g-banner fieldset,
+#g-sidebar fieldset {
+  border: none;
+  padding: 0;
+}
+
+legend {
+  font-weight: bold;
+  margin: 0 0 .4em .8em;
+}
+
+#g-banner legend,
+#g-sidebar legend,
+input[type="hidden"] {
+  display: none;
+}
+
+input.textbox,
+input[type="text"],
+input[type="password"],
+textarea {
+  border: 1px solid #e8e8e8;
+  border-top-color: #ccc;
+  border-left-color: #ccc;
+  clear: both;
+  color: #333;
+  width: 50%;
+}
+
+textarea {
+  height: 12em;
+  width: 97%;
+}
+
+input:focus,
+input.textbox:focus,
+input[type=text]:focus,
+textarea:focus,
+option:focus {
+  background-color: #ffc;
+  color: #000;
+}
+
+/* Form layout ~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+form li {
+  margin: 0;
+  padding: .3em 0;
+}
+
+form ul ul {
+  clear: both;
+}
+
+form ul ul li {
+  float: left;
+}
+
+input,
+select,
+textarea {
+  display: block;
+  clear: both;
+  padding: .2em;
+}
+
+input[type="submit"],
+input[type="reset"] {
+  display: inline;
+  clear: none;
+  float: left;
+}
+
+/* Forms in dialogs ~~~~~~~~~~~~~~~~~~ */
+
+#g-dialog form fieldset {
+  border: none;
+  padding: 0;
+}
+
+#g-dialog input.textbox,
+#g-dialog input[type=text],
+#g-dialog input[type=password],
+#g-dialog textarea {
+  width: 97%;
+}
+
+/* Short forms ~~~~~~~~~~~~~~~~~~~~~~~ */
+
+.g-short-form legend,
+.g-short-form label {
+  display: none;
+}
+
+.g-short-form fieldset {
+  border: none;
+  padding: 0;
+}
+
+.g-short-form li {
+  float: left;
+  margin: 0 !important;
+  padding: .4em 0;
+}
+
+.g-short-form .textbox,
+.g-short-form input[type=text] {
+  color: #666;
+  padding: .3em .6em;
+  width: 100%;
+}
+
+.g-short-form .textbox.g-error {
+  border: 1px solid #f00;
+  color: #f00;
+  padding-left: 24px;
+}
+
+.g-short-form .g-cancel {
+  display: block;
+  padding: .2em .8em;
+}
+
+#g-sidebar .g-short-form li {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/** *******************************************************************
+ * 3) Dimension and scale
+ **********************************************************************/
+
+.g-one-quarter {
   width: 25%;
 }
 
-.g-wide {
+.g-one-third {
+  width: 33%;
+}
+
+.g-one-half {
+  width: 50%;
+}
+
+.g-two-thirds {
+  width: 66%;
+}
+
+.g-three-quarters {
+  width: 75%;
+}
+
+.g-whole {
   width: 100%;
 }
 
 /** *******************************************************************
- * 3) States and interactions
+ * 4) States and interactions
  **********************************************************************/
 
 .g-active,
 .g-enabled,
 .g-available,
-.g-editable,
 .g-selected,
 .g-highlight {
   font-weight: bold;
@@ -56,10 +215,19 @@
 .g-unavailable,
 .g-uneditable,
 .g-locked,
-.g-unselected,
+.g-deselected,
 .g-understate {
   color: #ccc;
   font-weight: normal;
+}
+
+.g-editable {
+  padding: .2em .3em;
+}
+
+.g-editable:hover {
+  background-color: #ffc;
+  cursor: text;
 }
 
 .g-error,
@@ -77,7 +245,27 @@ form li.g-warning {
   padding: .3em .8em .3em 1em;
 }
 
-.g-error, 
+.g-short-form li.g-error {
+  padding: .3em 0 .3em 0;
+}
+
+form.g-error input[type="text"],
+li.g-error input[type="text"],
+form.g-error input[type="password"],
+li.g-error input[type="password"],
+form.g-error input[type="checkbox"],
+li.g-error input[type="checkbox"],
+form.g-error input[type="radio"],
+li.g-error input[type="radio"],
+form.g-error textarea,
+li.g-error textarea,
+form.g-error select,
+li.g-error select {
+  border: 2px solid #f00;
+  margin-bottom: .2em;
+}
+
+.g-error,
 .g-denied,
 tr.g-error td.g-error {
   background: #f6cbca url('images/ico-error.png') no-repeat .4em 50%;
@@ -89,11 +277,16 @@ tr.g-error td.g-error {
 }
 
 .g-success,
-.g-allowed {
+.g-allowed,
+tr.g-success td.g-success {
   background: #d9efc2  url('images/ico-success.png') no-repeat .4em 50%;
 }
 
-.g-warning, 
+tr.g-success td.g-success {
+  background-color: transparent;
+}
+
+.g-warning,
 tr.g-warning td.g-warning {
   background: #fcf9ce url('images/ico-warning.png') no-repeat .4em 50%;
 }
@@ -148,7 +341,7 @@ form .g-error {
 }
 
 /** *******************************************************************
- * 4) Positioning and order
+ * 5) Positioning and order
  **********************************************************************/
 
 .g-left {
@@ -178,7 +371,7 @@ form .g-error {
 }
 
 /** *******************************************************************
- * 5) Containers/widgets
+ * 6) Containers/widgets
  **********************************************************************/
 
 /* Generic block container ~~~~~~~~~~~~~~~ */
@@ -189,6 +382,34 @@ form .g-error {
 }
 
 .g-block-content {
+}
+
+/* Superfish menu overrides ~~~~~~~~~~~~~~ */
+
+.sf-menu ul {
+	width: 12em;
+}
+
+ul.sf-menu li li:hover ul,
+ul.sf-menu li li.sfHover ul {
+	left:	12em;
+}
+
+ul.sf-menu li li li:hover ul,
+ul.sf-menu li li li.sfHover ul {
+	left: 12em;
+}
+
+/* jQuery UI ThemeRoller buttons */
+
+/* Rotate icon, themerollower only provides one of these */
+
+.ui-icon-rotate-ccw {
+  background-position: -192px -64px;
+}
+
+.ui-icon-rotate-cw {
+  background-position: -208px -64px;
 }
 
 /* Buttons ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -215,18 +436,24 @@ form .g-error {
   display: inline-block;
 }
 
-/* Status messages ~~~~~~~~~~~~~~~~~~~~~~~ */
+/* Status and validation messages ~~~~ */
+
+.g-message {
+  font-size: .8em;
+}
 
 .g-message-block {
   border: 1px solid #ccc;
+  width: 100%;
 }
 
 #g-action-status {
   margin-bottom: 1em;
-  width: 100% !important;
 }
 
-#g-action-status li {
+#g-action-status li,
+p#g-action-status,
+div#g-action-status {
   padding-top: .4em;
   padding-bottom: .3em;
 }
@@ -296,79 +523,25 @@ form .g-error {
   width: 40%;
 }
 
-.g-inline * {
-  float: left;
-  margin-right: .4em;
-}
-
 /* Dialogs ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
 #g-dialog {
   text-align: left;
 }
 
-#g-dialog .g-narrow {
-  margin: 0 auto;
-  width: 270px;
-}
-
-#g-dialog fieldset {
-  border: none;
-  padding: 0 !important;
-  width: 99%;
-}
-
 #g-dialog legend {
   display: none;
-}
-
-#g-dialog form input[type="text"],
-#g-dialog form input[type="password"] {
-  width: 100%;
-}
-
-#g-dialog p {
-	margin: 0;
-}
-
-#g-dialog li {
-  padding-left: 0;
 }
 
 #g-dialog .g-cancel {
   margin: .4em 1em;
 }
 
-/* Inline layout (forms, lists) ~~~~~~~~~~ */
+/* Inline layout  ~~~~~~~~~~ */
 
-.g-short-form label {
-  display: none;
-}
-
-.g-short-form fieldset {
-  border: none;
-  padding: 0 !important;
-}
-
-.g-short-form li {
+.g-inline li {
   float: left;
-  padding: .4em 0;
-}
-
-.g-short-form input[type="text"] {
-  color: #666;
-  padding: .3em .6em;
-  width: auto;
-}
-
-.g-short-form .g-cancel {
-  display: block;
-  padding: .2em .8em;
-}
-
-#g-sidebar .g-short-form li {
-  padding-left: 0;
-  padding-right: 0;
+  margin-right: .4em;
 }
 
 /* Right to left styles ~~~~~~~~~~~~~~~~~~~~ */
