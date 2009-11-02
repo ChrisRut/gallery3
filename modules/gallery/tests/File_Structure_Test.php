@@ -235,7 +235,9 @@ class File_Structure_Test extends Unit_Test_Case {
     foreach ($info_files as $file) {
       foreach (file($file) as $line) {
         $parts = explode("=", $line, 2);
-        $values[trim($parts[0])] = trim($parts[1]);
+        if (isset($parts[1])) {
+          $values[trim($parts[0])] = trim($parts[1]);
+        }
       }
 
       $module = dirname($file);

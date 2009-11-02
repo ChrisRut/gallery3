@@ -26,8 +26,9 @@ class Log_Model extends ORM {
       // This relationship depends on an outside module, which may not be present so handle
       // failures gracefully.
       try {
-        return user::lookup($this->user_id);
+        return identity::lookup_user($this->user_id);
       } catch (Exception $e) {
+        Kohana::log("alert", "Unable to load user with id $this->user_id");
         return null;
       }
     } else {

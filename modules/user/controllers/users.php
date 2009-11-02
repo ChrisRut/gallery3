@@ -21,7 +21,7 @@ class Users_Controller extends Controller {
   public function update($id) {
     $user = user::lookup($id);
 
-    if ($user->guest || $user->id != user::active()->id) {
+    if ($user->guest || $user->id != identity::active_user()->id) {
       access::forbidden();
     }
 
@@ -59,11 +59,13 @@ class Users_Controller extends Controller {
 
   public function form_edit($id) {
     $user = user::lookup($id);
-    if ($user->guest || $user->id != user::active()->id) {
+    if ($user->guest || $user->id != identity::active_user()->id) {
       access::forbidden();
     }
 
-    print $this->_get_edit_form($user);
+    $v = new View("user_form.html");
+    $v->form = $this->_get_edit_form($user);
+    print $v;
   }
 
   private function _get_edit_form($user) {
@@ -77,6 +79,10 @@ class Users_Controller extends Controller {
     $group->input("email")->label(t("Email"))->id("g-email")->value($user->email);
     $group->input("url")->label(t("URL"))->id("g-url")->value($user->url);
     $form->add_rules_from($user);
+
+    $minimum_length = module::get_var("user", "mininum_password_length", 5);
+    $form->edit_user->password
+      ->rules($minimum_length ? "length[$minimum_length, 40]" : "length[40]");
 
     module::event("user_edit_form", $user, $form);
     $group->submit("")->value(t("Save"));

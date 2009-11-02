@@ -2,31 +2,33 @@
 <script type="text/javascript">
   var old_default_locale = <?= html::js_string($default_locale) ?>;
 
-  $("input[name='installed_locales[]']").change(function (event) {
-    if (this.checked) {
-      $("input[type='radio'][value='" + this.value + "']").enable();
-    } else {
-      if ($("input[type='radio'][value='" + this.value + "']").selected()) { // if you deselect your default language, switch to some other installed language
-        $("input[type='radio'][value='" + old_default_locale + "']").attr("checked", "checked");
+  $("#g-languages-form").ready(function() {
+    $("input[name='installed_locales[]']").change(function (event) {
+      if (this.checked) {
+        $("input[type='radio'][value='" + this.value + "']").enable();
+      } else {
+        if ($("input[type='radio'][value='" + this.value + "']").selected()) { // if you deselect your default language, switch to some other installed language
+          $("input[type='radio'][value='" + old_default_locale + "']").attr("checked", "checked");
+        }
+        $("input[type='radio'][value='" + this.value + "']").attr("disabled", "disabled");
       }
-      $("input[type='radio'][value='" + this.value + "']").attr("disabled", "disabled");
-    }
-  });
+    });
 
-  $("g-languages-form").ajaxForm({
-    dataType: "json",
-    success: function(data) {
-      if (data.result == "success") {
-        el = $('<a href="' + <?= html::js_string(url::site("admin/maintenance/start/gallery_task::update_l10n?csrf=$csrf")) ?> + '"></a>'); // this is a little hack to trigger the update_l10n task in a dialog
-        el.gallery_dialog();
-        el.trigger('click');
+    $("#g-languages-form").ajaxForm({
+      dataType: "json",
+      success: function(data) {
+        if (data.result == "success") {
+          el = $('<a href="' + <?= html::js_string(url::site("admin/maintenance/start/gallery_task::update_l10n?csrf=$csrf")) ?> + '"></a>'); // this is a little hack to trigger the update_l10n task in a dialog
+          el.gallery_dialog();
+          el.trigger('click');
+        }
       }
-    }
+    });
   });
 </script>
 
 <div class="g-block">
-  <h1> <?= t("Languages and Translation") ?> </h1>
+  <h1> <?= t("Languages and translation") ?> </h1>
 
   <div class="g-block-content">
 
@@ -107,6 +109,6 @@
         <?= $share_translations_form ?>
       </div>
     </div>
-    
+
   </div>
 </div>

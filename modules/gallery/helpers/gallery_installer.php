@@ -199,12 +199,12 @@ class gallery_installer {
     }
 
     access::register_permission("view", "View");
-    access::register_permission("view_full", "View Full Size");
+    access::register_permission("view_full", "View full size");
     access::register_permission("edit", "Edit");
     access::register_permission("add", "Add");
 
     // Mark for translation (must be the same strings as used above)
-    t("View Full Size");
+    t("View full size");
     t("View");
     t("Edit");
     t("Add");
@@ -268,7 +268,7 @@ class gallery_installer {
     module::set_var("gallery", "show_credits", 1);
     // @todo this string needs to be picked up by l10n_scanner
     module::set_var("gallery", "credits", "Powered by <a href=\"%url\">Gallery %version</a>");
-    module::set_version("gallery", 15);
+    module::set_version("gallery", 16);
   }
 
   static function upgrade($version) {
@@ -317,7 +317,7 @@ class gallery_installer {
     }
 
     if ($version == 7) {
-      $groups = ORM::factory("group")->find_all();
+      $groups = identity::groups();
       $permissions = ORM::factory("permission")->find_all();
       foreach($groups as $group) {
         foreach($permissions as $permission) {
@@ -392,6 +392,11 @@ class gallery_installer {
         block_manager::set_active("site.sidebar", $sidebar_blocks);
       }
       module::set_version("gallery", $version = 15);
+    }
+
+    if ($version == 15) {
+      module::set_var("gallery", "identity_provider", "user");
+      module::set_version("gallery", $version = 16);
     }
   }
 

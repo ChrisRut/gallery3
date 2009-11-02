@@ -2,7 +2,7 @@
 
 <? if (access::can("view_full", $theme->item())): ?>
 <!-- Use javascript to show the full size as an overlay on the current page -->
-<script>
+<script type="text/javascript">
   $(document).ready(function() {
     $(".g-fullsize-link").click(function() {
       $.gallery_show_full_size(<?= html::js_string($theme->item()->file_url()) ?>, "<?= $theme->item()->width ?>", "<?= $theme->item()->height ?>");
@@ -16,7 +16,7 @@
   <?= $theme->photo_top() ?>
 
   <ul class="g-pager ui-helper-clearfix">
-    <li>
+    <li class="g-first">
       <? if ($previous_item): ?>
       <a href="<?= $previous_item->url() ?>" class="g-button ui-icon-left ui-state-default ui-corner-all">
       <span class="ui-icon ui-icon-triangle-1-w"></span><?= t("previous") ?></a>

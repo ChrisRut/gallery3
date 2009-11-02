@@ -16,12 +16,12 @@
 
   <p>
     <a href="<?= url::site("form/edit/users/{$user->id}") ?>"
-      title="<?= t("Edit Your Profile")->for_html_attr() ?>"
+      title="<?= t("Edit your profile")->for_html_attr() ?>"
       id="g-after-install-change-password-link"
       class="g-button ui-state-default ui-corners-all">
-      <?= t("Change Password Now") ?>
+      <?= t("Change password now") ?>
     </a>
-    <script>
+    <script type="text/javascript">
       $("#g-after-install-change-password-link").gallery_dialog();
     </script>
   </p>

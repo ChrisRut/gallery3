@@ -75,7 +75,7 @@ class comment_Core {
     module::event("comment_add_form", $form);
     $group->submit("")->value(t("Add"))->class("ui-state-default ui-corner-all");
 
-    $active = user::active();
+    $active = identity::active_user();
     if (!$active->guest) {
       $group->inputs["name"]->value($active->full_name)->disabled("disabled");
       $group->email->value($active->email)->disabled("disabled");

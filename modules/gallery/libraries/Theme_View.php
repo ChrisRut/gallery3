@@ -37,13 +37,13 @@ class Theme_View_Core extends Gallery_View {
     parent::__construct($name);
 
     $this->theme_name = module::get_var("gallery", "active_site_theme");
-    if (user::active()->admin) {
+    if (identity::active_user()->admin) {
       $this->theme_name = Input::instance()->get("theme", $this->theme_name);
     }
     $this->item = null;
     $this->tag = null;
     $this->set_global("theme", $this);
-    $this->set_global("user", user::active());
+    $this->set_global("user", identity::active_user());
     $this->set_global("page_type", $page_type);
     $this->set_global("page_title", null);
     if ($page_type == "album") {
@@ -81,19 +81,19 @@ class Theme_View_Core extends Gallery_View {
   public function site_menu() {
     $menu = Menu::factory("root");
     module::event("site_menu", $menu, $this);
-    return $menu->compact();
+    return $menu->render();
   }
 
   public function album_menu() {
     $menu = Menu::factory("root");
     module::event("album_menu", $menu, $this);
-    return $menu->compact();
+    return $menu->render();
   }
 
   public function tag_menu() {
     $menu = Menu::factory("root");
     module::event("tag_menu", $menu, $this);
-    return $menu->compact();
+    return $menu->render();
   }
 
   public function photo_menu() {
@@ -107,13 +107,13 @@ class Theme_View_Core extends Gallery_View {
     }
 
     module::event("photo_menu", $menu, $this);
-    return $menu->compact();
+    return $menu->render();
   }
 
   public function movie_menu() {
     $menu = Menu::factory("root");
     module::event("movie_menu", $menu, $this);
-    return $menu->compact();
+    return $menu->render();
   }
 
   public function context_menu($item, $thumbnail_css_selector) {
@@ -124,7 +124,7 @@ class Theme_View_Core extends Gallery_View {
       ->css_class("g-context-menu");
 
     module::event("context_menu", $menu, $this, $item, $thumbnail_css_selector);
-    return $menu->compact();
+    return $menu->render();
   }
 
   public function pager() {
@@ -158,7 +158,7 @@ class Theme_View_Core extends Gallery_View {
    */
   public function sidebar_blocks() {
     $sidebar = block_manager::get_html("site.sidebar", $this);
-    if (empty($sidebar) && user::active()->admin) {
+    if (empty($sidebar) && identity::active_user()->admin) {
       $sidebar = new View("no_sidebar.html");
     }
     return $sidebar;

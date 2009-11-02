@@ -46,7 +46,7 @@ class Password_Controller extends Controller {
 
     $valid = $form->validate();
     if ($valid) {
-      $user = user::lockup_by_name($form->reset->inputs["name"]->value);
+      $user = user::lookup_by_name($form->reset->inputs["name"]->value);
       if (!$user->loaded || empty($user->email)) {
         $form->reset->inputs["name"]->add_error("no_email", 1);
         $valid = false;
@@ -101,27 +101,29 @@ class Password_Controller extends Controller {
     if (!empty($hash)) {
       $hidden->value($hash);
     }
-    $group->password("password")->label(t("Password"))->id("g-password")
-      ->rules("required|length[1,40]");
+    $minimum_length = module::get_var("user", "mininum_password_length", 5);
+    $input_password = $group->password("password")->label(t("Password"))->id("g-password")
+      ->rules($minimum_length ? "required|length[$minimum_length, 40]" : "length[40]");
     $group->password("password2")->label(t("Confirm Password"))->id("g-password2")
       ->matches($group->password);
     $group->inputs["password2"]->error_messages(
       "mistyped", t("The password and the confirm password must match"));
     $group->submit("")->value(t("Update"));
 
-    $template->content = $form;
+    $template->content = new View("user_form.html");
+    $template->content->form = $form;
     return $template;
   }
 
   private function _change_password() {
     $view = $this->_new_password_form();
-    if ($view->content->validate()) {
-      $user = user::lookup_by_hash(Input::instance()->get("key"));
+    if ($view->content->form->validate()) {
+      $user = user::lookup_by_hash(Input::instance()->post("hash"));
       if (empty($user)) {
         throw new Exception("@todo FORBIDDEN", 503);
       }
 
-      $user->password = $view->content->reset->password->value;
+      $user->password = $view->content->form->reset->password->value;
       $user->hash = null;
       $user->save();
       message::success(t("Password reset successfully"));

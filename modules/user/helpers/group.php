@@ -28,7 +28,7 @@ class group_Core {
    * Create a new group.
    *
    * @param string  $name
-   * @return Group_Model
+   * @return Group_Definition the group object
    */
   static function create($name) {
     $group = ORM::factory("group")->where("name", $name)->find();
@@ -38,14 +38,13 @@ class group_Core {
 
     $group->name = $name;
     $group->save();
-
     return $group;
   }
 
   /**
    * The group of all possible visitors.  This includes the guest user.
    *
-   * @return Group_Model
+   * @return Group_Definition the group object
    */
   static function everybody() {
     return model_cache::get("group", 1);
@@ -54,37 +53,37 @@ class group_Core {
   /**
    * The group of all logged-in visitors.  This does not include guest users.
    *
-   * @return Group_Model
+   * @return Group_Definition the group object
    */
   static function registered_users() {
     return model_cache::get("group", 2);
   }
 
   /**
-   * Look up a user by id.
+   * Look up a group by id.
    * @param integer      $id the user id
-   * @return User_Model  the user object, or null if the id was invalid.
+   * @return Group_Definition  the group object, or null if the id was invalid.
    */
   static function lookup($id) {
-    return self::_lookup_group_by_field("id", $id);
+    return self::_lookup_by_field("id", $id);
   }
 
   /**
    * Look up a group by name.
    * @param integer      $id the group name
-   * @return Group_Model  the group object, or null if the name was invalid.
+   * @return Group_Definition  the group object, or null if the name was invalid.
    */
   static function lookup_by_name($name) {
-    return self::_lookup_group_by_field("name", $name);
+    return self::_lookup_by_field("name", $name);
   }
 
   /**
-   * Look up a user by field value.
-   * @param string      search field
-   * @param string      search value
-   * @return Group_Model  the user object, or null if the name was invalid.
+   * Search the groups by the field and value.
+   * @param string      $field_name column to look up the user by
+   * @param string      $value value to match
+   * @return Group_Definition  the group object, or null if the name was invalid.
    */
-  private static function _lookup_group_by_field($field_name, $value) {
+  private static function _lookup_by_field($field_name, $value) {
     try {
       $user = model_cache::get("group", $value, $field_name);
       if ($user->loaded) {
@@ -96,25 +95,5 @@ class group_Core {
       }
     }
     return null;
-  }
-
-  /**
-   * List the users
-   * @param mixed      filters (@see Database.php
-   * @return array     the group list.
-   */
-  static function get_group_list($filter=array()) {
-    $group = ORM::factory("group");
-
-    foreach($filter as $method => $args) {
-      switch ($method) {
-      case "in":
-        $group->in($args[0], $args[1]);
-        break;
-      default:
-        $group->$method($args);
-      }
-    }
-    return $group->find_all();
   }
 }

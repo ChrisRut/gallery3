@@ -9,7 +9,9 @@
  *  4)  States and interactions
  *  5)  Positioning and order
  *  6)  Containers/widgets
+ *  7)  Right to left language styles
  *
+ *  @todo Update .g-message-block, don't force it to 100%, bad things happen is themes when you do.
  *  @todo Remove extra white space at the top of the add comment form, above the first field
  */
 
@@ -83,6 +85,11 @@ textarea:focus,
 option:focus {
   background-color: #ffc;
   color: #000;
+}
+
+input.checkbox {
+  float: left;
+  margin-right: .4em;
 }
 
 /* Form layout ~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -347,13 +354,11 @@ form .g-error {
 .g-left {
   clear: none;
   float: left;
-  margin: 1em 1em 1em 0;
 }
 
 .g-right {
   clear: none;
   float: right;
-  margin: 1em 0 1em 1em;
 }
 
 .g-first {
@@ -400,16 +405,11 @@ ul.sf-menu li li li.sfHover ul {
 	left: 12em;
 }
 
-/* jQuery UI ThemeRoller buttons */
+/* jQuery UI Dialog ~~~~~~~~~~~~~~~~~~~~~~ */
 
-/* Rotate icon, themerollower only provides one of these */
-
-.ui-icon-rotate-ccw {
-  background-position: -192px -64px;
-}
-
-.ui-icon-rotate-cw {
-  background-position: -208px -64px;
+.ui-widget-overlay {
+  background: #000;
+  opacity: .7;
 }
 
 /* Buttons ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -429,6 +429,40 @@ ul.sf-menu li li li.sfHover ul {
   -moz-outline-style: none;
 }
 
+/* jQuery UI ThemeRoller buttons ~~~~~~~~~ */
+
+.g-buttonset {
+  padding-left: 1px;
+}
+
+.g-buttonset li {
+  float: left;
+}
+
+.g-buttonset .g-button {
+  margin: 0;
+}
+
+.ui-icon-left .ui-icon {
+  float: left;
+  margin-right: .2em;
+}
+
+.ui-icon-right .ui-icon {
+  float: right;
+  margin-left: .2em;
+}
+
+/* Rotate icon, ThemeRoller only provides one of these */
+
+.ui-icon-rotate-ccw {
+  background-position: -192px -64px;
+}
+
+.ui-icon-rotate-cw {
+  background-position: -208px -64px;
+}
+
 .g-progress-bar {
   height: 1em;
   width: 100%;
@@ -438,12 +472,9 @@ ul.sf-menu li li li.sfHover ul {
 
 /* Status and validation messages ~~~~ */
 
-.g-message {
-  font-size: .8em;
-}
-
 .g-message-block {
   border: 1px solid #ccc;
+  padding: 0 !important;
   width: 100%;
 }
 
@@ -471,17 +502,19 @@ div#g-action-status {
 /* Breadcrumbs ~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
 .g-breadcrumbs {
+  clear: both;
   padding: 0 20px;
 }
 
 .g-breadcrumbs li {
   background: transparent url('images/ico-separator.gif') no-repeat scroll left center;
   float: left;
-  padding: 10px 6px 10px 16px !important;
+  padding: 1em 8px 1em 18px;
 }
 
-.g-breadcrumbs li.root {
-  background: transparent;
+.g-breadcrumbs .g-first {
+  background: none;
+  padding-left: 0;
 }
 
 .g-breadcrumbs li a,
@@ -489,25 +522,15 @@ div#g-action-status {
   display: block;
 }
 
-.g-breadcrumbs li.active,
-.g-breadcrumbs li.active span {
-  font-weight: bold;
-}
-
 #g-dialog ul.g-breadcrumbs {
-  clear: both;
   margin-left: 0;
   padding-left: 0;
-}
-
-#g-dialog .g-breadcrumbs li {
-  font-size: .9em;
 }
 
 /* Pagination ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
 .g-pager {
-  padding: 5px 0;
+  padding: .2em 0;
   width: 100%;
 }
 
@@ -541,11 +564,92 @@ div#g-action-status {
 
 .g-inline li {
   float: left;
-  margin-right: .4em;
+  margin-left: 1.8em;
+  padding-left: 0 !important;
 }
 
-/* Right to left styles ~~~~~~~~~~~~~~~~~~~~ */
+.g-inline li.g-first {
+  margin-left: 0;
+}
 
-.rtl .g-short-form li {
+/** *******************************************************************
+ * 7) Right to left language styles
+ **********************************************************************/
+
+.rtl {
+  direction: rtl;
+}
+
+.rtl #g-header,
+.rtl #g-content,
+.rtl #g-sidebar,
+.rtl #g-footer,
+.rtl caption,
+.rtl th,
+.rtl #g-dialog,
+.rtl .g-context-menu li a,
+.rtl .g-message-box li,
+.rtl #g-site-status li {
+  text-align: right;
+}
+
+.rtl .g-txt-right {
+  text-align: left;
+}
+
+.rtl .g-error,
+.rtl .g-info,
+.rtl .g-success,
+.rtl .g-warning {
+  background-position: center right;
+  padding-right: 30px !important;
+}
+
+.rtl .g-left,
+.rtl .g-inline li,
+.rtl form ul ul li,
+.rtl input[type="submit"],
+.rtl input[type="reset"],
+.rtl #g-content #g-album-grid .g-item,
+.rtl .sf-menu li,
+.rtl .g-breadcrumbs li,
+.rtl .g-pager li,
+.rtl .g-buttonset li,
+.rtl .ui-icon-left .ui-icon,
+.rtl input.checkbox {
   float: right;
+}
+
+.rtl .g-right,
+.rtl .ui-icon-right .ui-icon {
+  float: left;
+}
+
+.rtl .g-inline li {
+  margin-right: 1em;
+}
+
+.rtl .g-inline li.g-first {
+  margin-right: 0;
+}
+
+.rtl .g-breadcrumbs li {
+  background-position: right center;
+  padding: 1em 18px 1em 8px;
+}
+
+.rtl .g-breadcrumbs .g-first {
+  padding-right: 0;
+}
+
+.rtl .g-pager .g-info {
+  width: 35%;
+}
+
+.rtl .g-pager .g-txt-right {
+  margin-left: 0;
+}
+
+.rtl input.checkbox {
+  margin-right: .4em;
 }

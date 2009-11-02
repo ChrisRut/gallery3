@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-    <title><?= t("Admin Dashboard") ?></title>
+    <title><?= t("Admin dashboard") ?></title>
     <link rel="shortcut icon" href="<?= url::file("lib/images/favicon.ico") ?>" type="image/x-icon" />
 
     <?= $theme->css("yui/reset-fonts-grids.css") ?>
@@ -23,7 +23,7 @@
    <?= $theme->script("gallery.common.js") ?>
    <? /* MSG_CANCEL is required by gallery.dialog.js */ ?>
    <script type="text/javascript">
-   var MSG_CANCEL = <?= t('Cancel')->for_js() ?>;
+   var MSG_CANCEL = <?= t("Cancel")->for_js() ?>;
    </script>
    <?= $theme->script("gallery.ajax.js") ?>
    <?= $theme->script("gallery.dialog.js") ?>
@@ -41,13 +41,23 @@
     <div id="doc3" class="yui-t7 g-view">
     <? endif; ?>
       <?= $theme->site_status() ?>
-      <div id="g-header">
+      <div id="g-header" class="ui-helper-clearfix">
         <?= $theme->admin_header_top() ?>
-        <ul id="g-login-menu" class="g-inline">
-          <li class="first"><?= html::anchor(item::root()->abs_url(), "&larr; ".t("Back to the Gallery")) ?></li>
+        <ul id="g-login-menu" class="g-inline g-right">
+          <li class="g-first">
+            <? if (identity::is_writable()): ?>
+            <?= t('Logged in as %name', array('name' => html::mark_clean(
+              '<a href="' . url::site("form/edit/users/{$user->id}") .
+              '" title="' . t("Edit your profile")->for_html_attr() .
+              '" id="g-user-profile-link" class="g-dialog-link">' .
+              html::clean($user->display_name()) . '</a>'))) ?>
+            <? else: ?>
+            <?= t('Logged in as %name', array('name' => html::clean($user->display_name()))) ?>
+            <? endif ?>
+          </li>
           <li id="g-logout-link"><a href="<?= url::site("logout?csrf=$csrf&amp;continue=" . urlencode(item::root()->url())) ?>"><?= t("Logout") ?></a></li>
         </ul>
-        <a id="g-logo" href="<?= item::root()->url() ?>" title="<?= t("go back to the Gallery")->for_html_attr() ?>">
+        <a id="g-logo" class="g-left" href="<?= item::root()->url() ?>" title="<?= t("go back to the Gallery")->for_html_attr() ?>">
           &larr; <?= t("back to the ...") ?>
         </a>
         <div id="g-site-admin-menu" class="ui-helper-clearfix">

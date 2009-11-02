@@ -1,10 +1,10 @@
 /**
- * Gallery 3 Default Theme Screen Styles
+ * Gallery 3 Wind Theme Screen Styles
  *
  * @requires YUI reset, font, grids CSS
  *
  * Sheet organization:
- *  1)  Basic HTML elements
+ *  1)  Font sizes, base HTML elements
  *  2)  Reusable content blocks
  *  3)  Page layout containers
  *  4)  Content blocks in specific layout containers
@@ -16,7 +16,7 @@
  */
 
 /** *******************************************************************
- * 1) Basic HTML elements
+ * 1) Font sizes, base HTML elements
  **********************************************************************/
 
 body, html {
@@ -42,7 +42,7 @@ h1 {
   font-size: 1.7em;
 }
 
-#g-progress h1 {
+#g-dialog h1 {
   font-size: 1.1em;
 }
 
@@ -58,8 +58,25 @@ h2 {
   margin-bottom: .6em;
 }
 
+#g-content,
+#g-site-menu,
 h3 {
   font-size: 1.2em;
+}
+
+#g-sidebar,
+.g-breadcrumbs {
+  font-size: .9em;
+}
+
+#g-banner,
+#g-footer,
+.g-message {
+  font-size: .8em;
+}
+
+#g-content #g-album-grid .g-item {
+  font-size: .7em;
 }
 
 /* Links ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -151,21 +168,18 @@ td {
 #g-banner {
   background-color: #e8e8e8;
   border-bottom: 1px solid #ccc;
-  font-size: .8em;
   min-height: 5em;
   padding: 1em 20px;
   position: relative;
 }
 
 #g-content {
-  font-size: 1.2em;
   padding-left: 20px;
   position: relative;
   width: 696px;
 }
 
 #g-sidebar {
-  font-size: .9em;
   padding: 0 20px;
   width: 220px;
 }
@@ -173,9 +187,10 @@ td {
 #g-footer {
   background-color: #e8e8e8;
   border-top: 1px solid #ccc;
-  font-size: 1em;
-  margin-top: 10px;
+  margin-top: 20px;
   padding: 10px 20px;
+  /* Below added by CHR */
+  font-size: 1em;
   color: #000000;
 }
 
@@ -190,10 +205,6 @@ td {
  *********************************************************************/
 
 /* Header  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-
-#g-banner #g-logo img {
-  margin: 0;
-}
 
 #g-banner #g-quick-search-form {
   clear: right;
@@ -226,7 +237,6 @@ td {
   background-color: #fff;
   border: 1px solid #fff;
   float: left;
-  font-size: .7em;
   padding: .6em 8px;
   position: relative;
   text-align: center;
@@ -304,10 +314,6 @@ td {
  * 5) Navigation and menus
  *********************************************************************/
 
-#g-site-menu {
-  font-size: 1.2em;
-}
-
 /* Login menu ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
 #g-banner #g-login-menu {
@@ -344,10 +350,6 @@ td {
   display: none;
   margin-top: 2em;
   width: 100%;
-}
-
-#g-item .g-context-menu {
-  font-size: .7em;
 }
 
 #g-item .g-context-menu ul {
@@ -421,69 +423,23 @@ td {
   background-color: #449647;
 }
 
-/* jQuery UI Dialog ~~~~~~~~~~~~~~~~~~~~~~ */
-
-.ui-widget-overlay {
-  background: #000;
-  opacity: .7;
-}
-
-/* jQuery UI ThemeRoller buttons */
-
-.g-buttonset {
-  padding-left: 1px;
-}
-
-.g-buttonset li {
-  float: left;
-}
-
-.g-buttonset .g-button {
-  margin: 0;
-}
-
-.ui-icon-left .ui-icon {
-  float: left;
-  margin-right: .2em;
-}
-
-.ui-icon-right .ui-icon {
-  float: right;
-  margin-left: .2em;
-}
-
 /** *******************************************************************
- * 6) Right to left styles
+ * 7) Right to left language styles
  *********************************************************************/
 
-.rtl {
-  direction: rtl;
-}
-
-.rtl caption,
-.rtl th,
-.rtl #g-dialog {
-  text-align: right;
-}
-
-.rtl .g-right,
-.rtl #g-header #g-quick-search-form,
 .rtl #g-header #g-login-menu,
-.rtl .ui-icon-right .ui-icon {
+.rtl #g-header #g-quick-search-form {
   clear: left;
   float: left;
 }
 
-.rtl .g-left,
-.rtl form ul ul li,
-.rtl input[type="submit"],
-.rtl input[type="reset"],
-.rtl #g-header #g-logo img,
-.rtl #g-content #g-album-grid .g-item,
-.rtl #g-site-menu,
-.rtl .g-breadcrumbs li,
-.rtl .g-pager li,
-.rtl .g-buttonset li,
-.rtl .ui-icon-left .ui-icon {
-  float: right;
+.rtl #g-header #g-login-menu li {
+  margin-left: 0;
+  padding-left: 0;
+  padding-right: 1.2em;
+}
+
+.rtl #g-site-menu {
+  left: auto;
+  right: 150px;
 }

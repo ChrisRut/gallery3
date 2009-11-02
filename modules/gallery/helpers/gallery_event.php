@@ -24,8 +24,42 @@ class gallery_event_Core {
    */
   static function gallery_ready() {
     theme::load_themes();
-    user::load_user();
+    identity::load_user();
     locales::set_request_locale();
+  }
+
+  static function user_deleted($user) {
+    $admin = identity::admin_user();
+    $db = Database::instance();
+    $db->from("tasks")
+      ->set(array("owner_id" => $admin->id))
+      ->where(array("owner_id" => $user->id))
+      ->update();
+    $db->from("items")
+      ->set(array("owner_id" => $admin->id))
+      ->where(array("owner_id" => $user->id))
+      ->update();
+    $db->from("logs")
+      ->set(array("user_id" => $admin->id))
+      ->where(array("user_id" => $user->id))
+      ->update();
+  }
+
+  static function identity_provider_changed($old_provider, $new_provider) {
+    $admin = identity::admin_user();
+    $db = Database::instance();
+    $db->from("tasks")
+      ->set(array("owner_id" => $admin->id))
+      ->where("1 = 1")
+      ->update();
+    $db->from("items")
+      ->set(array("owner_id" => $admin->id))
+      ->where("1 = 1")
+      ->update();
+    $db->from("logs")
+      ->set(array("user_id" => $admin->id))
+      ->where("1 = 1")
+      ->update();
   }
 
   static function group_created($group) {
@@ -136,7 +170,7 @@ class gallery_event_Core {
         }
       }
 
-      if (user::active()->admin) {
+      if (identity::active_user()->admin) {
         $menu->append($admin_menu = Menu::factory("submenu")
                 ->id("admin_menu")
                 ->label(t("Admin")));
@@ -165,7 +199,11 @@ class gallery_event_Core {
                ->append(Menu::factory("link")
                         ->id("advanced")
                         ->label(t("Advanced"))
-                        ->url(url::site("admin/advanced_settings"))))
+                        ->url(url::site("admin/advanced_settings")))
+               ->append(Menu::factory("link")
+                        ->id("identity_drivers")
+                        ->label(t("Identity drivers"))
+                        ->url(url::site("admin/identity"))))
       ->append(Menu::factory("link")
                ->id("modules")
                ->label(t("Modules"))
@@ -178,20 +216,16 @@ class gallery_event_Core {
                ->label(t("Appearance"))
                ->append(Menu::factory("link")
                         ->id("themes")
-                        ->label(t("Theme Choice"))
+                        ->label(t("Theme choice"))
                         ->url(url::site("admin/themes")))
                ->append(Menu::factory("link")
                         ->id("theme_options")
-                        ->label(t("Theme Options"))
+                        ->label(t("Theme options"))
                         ->url(url::site("admin/theme_options")))
                ->append(Menu::factory("link")
                         ->id("sidebar")
-                        ->label(t("Manage Sidebar"))
+                        ->label(t("Manage sidebar"))
                         ->url(url::site("admin/sidebar"))))
-      ->append(Menu::factory("link")
-               ->id("users_groups")
-               ->label(t("Users/Groups"))
-               ->url(url::site("admin/users")))
       ->append(Menu::factory("submenu")
                ->id("statistics_menu")
                ->label(t("Statistics")))

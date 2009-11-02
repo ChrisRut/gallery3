@@ -55,7 +55,7 @@ class gallery_theme_Core {
   static function header_top($theme) {
     if ($theme->page_type != "login") {
       $view = new View("login.html");
-      $view->user = user::active();
+      $view->user = identity::active_user();
       return $view->render();
     }
   }
@@ -102,7 +102,7 @@ class gallery_theme_Core {
   }
 
   static function credits() {
-     return "<li class=\"first\">" .
+     return "<li class=\"g-first\">" .
       t(module::get_var("gallery", "credits"),
         array("url" => "http://gallery.menalto.com", "version" => gallery::VERSION)) .
       "</li>";

@@ -98,12 +98,13 @@ class module_Core {
         $m->active = self::is_active($module_name);
         $m->code_version = $m->version;
         $m->version = self::get_version($module_name);
-        $m->locked = false;
+        $m->locked = !empty($m->no_module_admin);
       }
 
       // Lock certain modules
       $modules->gallery->locked = true;
-      $modules->user->locked = true;
+      $identity_module = self::get_var("gallery", "identity_provider", "user");
+      $modules->$identity_module->locked = true;
       $modules->ksort();
       self::$available = $modules;
     }
@@ -129,6 +130,8 @@ class module_Core {
     array_unshift($kohana_modules, MODPATH . $module_name);
     Kohana::config_set("core.modules",  $kohana_modules);
 
+    // Rebuild the include path so the module installer can benefit from auto loading
+    Kohana::include_paths(true);
     $installer_class = "{$module_name}_installer";
     if (method_exists($installer_class, "install")) {
       call_user_func_array(array($installer_class, "install"), array());
@@ -152,10 +155,6 @@ class module_Core {
    * @param string $module_name
    */
   static function upgrade($module_name) {
-    $kohana_modules = Kohana::config("core.modules");
-    array_unshift($kohana_modules, MODPATH . $module_name);
-    Kohana::config_set("core.modules",  $kohana_modules);
-
     $version_before = module::get_version($module_name);
     $installer_class = "{$module_name}_installer";
     if (method_exists($installer_class, "upgrade")) {
@@ -168,11 +167,14 @@ class module_Core {
         throw new Exception("@todo UNKNOWN_MODULE");
       }
     }
-    module::load_modules();
 
-    // Now the module is upgraded but inactive, so don't leave it in the active path
-    array_shift($kohana_modules);
-    Kohana::config_set("core.modules",  $kohana_modules);
+    // Now the module is upgraded so deactivate it, but we can'it deactivae gallery or the
+    // current identity provider.
+    $identity_provider = module::get_var("gallery", "identity_provider", "user");
+    if (!in_array($module_name, array("gallery", $identity_provider)) ) {
+      self::deactivate($module_name);
+    }
+    module::load_modules();
 
     $version_after = module::get_version($module_name);
     if ($version_before != $version_after) {
