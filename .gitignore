@@ -5,4 +5,4 @@ var
 local.php
 
 # Ignore contrib modules
-modules/contrib
+modules/register
