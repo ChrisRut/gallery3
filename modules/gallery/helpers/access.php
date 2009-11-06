@@ -595,7 +595,7 @@ class access_Core {
   }
 
   /**
-   * Maintain .htacccess files to prevent direct access to albums, resizes and thumbnails when we
+   * Maintain .htaccess files to prevent direct access to albums, resizes and thumbnails when we
    * apply the view and view_full permissions to guest users.
    */
   private static function _update_htaccess_files($album, $group, $perm_name, $value) {
