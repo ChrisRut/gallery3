@@ -12,8 +12,7 @@
  *  6)  jQuery and jQuery UI
  *  7)  Right-to-left language styles
  *
- * @todo Consider moving g-panel to gallery.common
- * @todo Review g-actions along with g-buttonset-vertical
+ * @todo Review g-buttonset-vertical
  */
 
 /** *******************************************************************
@@ -86,6 +85,24 @@ a:hover,
   text-decoration: none;
 }
 
+/* Forms ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+fieldset {
+  margin-bottom: 1em;
+}
+
+#g-content form ul li {
+  padding: .4em 0;
+}
+
+#g-dialog form {
+  width: 270px;
+}
+
+#g-dialog fieldset {
+  margin-bottom: 0;
+}
+
 /* Tables ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
 table {
@@ -93,7 +110,7 @@ table {
 }
 
 #g-content table {
-  margin: 1em 0 3em 0;
+  margin: .6em 0 2em 0;
 }
 
 caption,
@@ -110,6 +127,7 @@ td {
 }
 
 th {
+  vertical-align: bottom;
   white-space: nowrap;
 }
 
@@ -117,7 +135,8 @@ th {
  * 2) Reusable content blocks
  *********************************************************************/
 
-.g-block {
+.g-block,
+#g-content #g-admin-dashboard .g-block {
   background-color: #fff;
   border: 1px solid #ccc;
   padding: 1em;
@@ -132,8 +151,19 @@ th {
   margin-top: 1em;
 }
 
+#g-content .g-block {
+  border: none;
+  padding: 0;
+}
+
 #g-sidebar .g-block-content {
   padding: 0;
+}
+
+#g-content .g-selected,
+#g-content .g-available .g-block {
+  border: 1px solid #ccc;
+  padding: .8em;
 }
 
 .g-selected img,
@@ -338,11 +368,6 @@ th {
   margin-right: 1em;
 }
 
-.g-actions a,
-.g-actions span {
-  margin-right: 3em;
-}
-
 /* Block admin  ~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
 .g-admin-blocks-list {
@@ -368,8 +393,8 @@ th {
   padding: .3em .8em;
 }
 
-/* In-line editting  ~~~~~~~~~~~~~~~~~~~~~ */
-#g-inplace-edit-message {
+/* In-line editing  ~~~~~~~~~~~~~~~~~~~~~~ */
+#g-in-place-edit-message {
   background-color: #FFF;
 }
 
@@ -407,19 +432,6 @@ th {
 
 /* jQuery UI Dialog ~~~~~~~~~~~~~~~~~~~~~~ */
 
-#g-panel {
-  display: none;
-  padding: 1em;
-}
-
-#g-panel legend {
-  display: none;
-}
-
-#g-panel fieldset {
-  border: none;
-}
-
 #g-admin-dashboard .ui-state-highlight,
 #g-sidebar .ui-state-highlight {
   height: 2em;
@@ -433,39 +445,6 @@ th {
 #g-admin-dashboard .ui-dialog-titlebar,
 #g-admin-dashboard-sidebar .ui-dialog-titlebar {
   padding: .2em .4em;
-}
-
-/*************** STUFF THAT NEEDS A HOME ****************/
-
-.g-task-log {
-  border: 1pt solid;
-  font-size: .9em;
-  height: 400px;
-  margin: .5em 0;
-  overflow: auto;
-  padding: .5em
-}
-
-#g-languages-form table {
-	width: 40%;
-	margin: 0 3em 1em 0;
-}
-
-#g-languages-form input {
-	clear: both;
-}
-
-#g-translations ol {
-	margin: 0 0 1em 2em;
-}
-#g-translations ol li {
-  list-style-type: decimal;
-	line-height: 150%;
-}
-
-#g-translations .g-button {
-	padding: .5em;
-	margin-bottom: 1em;
 }
 
 /** *******************************************************************

@@ -85,6 +85,8 @@
           <a id="g-logo" class="g-left" href="<?= item::root()->url() ?>" title="<?= t("go back to the Gallery home")->for_html_attr() ?>">
             <img width="107" height="48" alt="<?= t("Gallery logo: Your photos on your web site")->for_html_attr() ?>" src="<?= url::file("lib/images/logo.png") ?>" />
           </a>
+          <? endif ?>
+          <?= $theme->user_menu() ?>
           <?= $theme->header_top() ?>
           <div id="g-site-menu">
           <?= $theme->site_menu() ?>
